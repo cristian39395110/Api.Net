@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_1.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_13.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_18.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_2.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_20.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_20.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_21.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_21.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_3.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_4.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_5.png",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_5.png"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_9.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\avatar_9.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Laboratorio 3.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Laboratorio 3.props",
+      "PackagePath": "build\\Laboratorio 3.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Laboratorio 3.props",
+      "PackagePath": "buildMultiTargeting\\Laboratorio 3.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Laboratorio 3.props",
+      "PackagePath": "buildTransitive\\Laboratorio 3.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
