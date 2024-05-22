@@ -1,48 +1,128 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_1.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\04038375-0dcc-4312-b2a4-e83ca953517f.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\04038375-0dcc-4312-b2a4-e83ca953517f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\1dedbd08-9455-4868-8e48-89dc76253285.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\1dedbd08-9455-4868-8e48-89dc76253285.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\42ee8341-85dc-4a58-85fa-287435d7ef7d.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\42ee8341-85dc-4a58-85fa-287435d7ef7d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\57267160-505e-4c78-be2a-ba22e4a2a88a.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\57267160-505e-4c78-be2a-ba22e4a2a88a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\80435d9d-11ae-4be0-b1bf-03033ced041b.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\80435d9d-11ae-4be0-b1bf-03033ced041b.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\89956c6f-f063-49cd-9336-b536c16c05e6.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\89956c6f-f063-49cd-9336-b536c16c05e6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\8e1f7d86-eaf8-4e36-99d9-2dd40bf746fe.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\8e1f7d86-eaf8-4e36-99d9-2dd40bf746fe.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\8f03e138-a41b-4e6d-9890-dc23168fff5c.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\8f03e138-a41b-4e6d-9890-dc23168fff5c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\9dff3082-1d80-4339-949a-49ca65880546.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\9dff3082-1d80-4339-949a-49ca65880546.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_1.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_1.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_13.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_13.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_13.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_18.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_18.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_18.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_2.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_2.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_2.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_20.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_20.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_20.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_21.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_21.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_21.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_3.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_3.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_3.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_4.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_4.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_4.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_5.png",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_5.png",
       "PackagePath": "staticwebassets\\Uploads\\avatar_5.png"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_6.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_6.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_6.jpg"
     },
     {
-      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\wwwroot\\Uploads\\avatar_9.jpg",
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\avatar_9.jpg",
       "PackagePath": "staticwebassets\\Uploads\\avatar_9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\b1521f2d-c79e-4779-ae17-26cbdf0ad2a7.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b1521f2d-c79e-4779-ae17-26cbdf0ad2a7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\b1982218-5b9f-4b18-b814-6dcb3bdfef79.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b1982218-5b9f-4b18-b814-6dcb3bdfef79.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\b5e09f34-6f59-4e0a-8b59-39b2765b341d.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b5e09f34-6f59-4e0a-8b59-39b2765b341d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\b6e9f455-d0ba-4c48-a28c-72fc6da89b75.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\b6e9f455-d0ba-4c48-a28c-72fc6da89b75.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\c117a597-5afe-4bfa-a6ca-e4178ec37e5c.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\c117a597-5afe-4bfa-a6ca-e4178ec37e5c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\cbef8d72-46ce-482a-818d-8a10049d9e09.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\cbef8d72-46ce-482a-818d-8a10049d9e09.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\d7ecbf38-e83a-406c-bcc3-a3106ffc4d38.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\d7ecbf38-e83a-406c-bcc3-a3106ffc4d38.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\e7528544-6df8-4b32-bdef-69a8bd5fc6e3.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\e7528544-6df8-4b32-bdef-69a8bd5fc6e3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\f0dd9042-df4e-45c2-b9dd-e01bed500842.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\f0dd9042-df4e-45c2-b9dd-e01bed500842.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\f8a04bd7-4412-4c2d-8178-5ac0b511ad49.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\f8a04bd7-4412-4c2d-8178-5ac0b511ad49.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Home\\OneDrive\\Escritorio\\Laboratorio_3\\Api.Net\\wwwroot\\Uploads\\fd67e6ed-086f-45ff-93b8-4d4d905c44e5.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\fd67e6ed-086f-45ff-93b8-4d4d905c44e5.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Laboratorio 3.Microsoft.AspNetCore.StaticWebAssets.props",

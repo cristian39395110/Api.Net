@@ -32,7 +32,7 @@ namespace Laboratorio_3.Controllers
 [HttpGet("GetContrato")]
  // Requires valid JWT token for access
 public IActionResult GetContrato(int id)
-{     
+{     Console.WriteLine("hola");
     var user = HttpContext.User;
 
     var userIdClaim = user.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -47,7 +47,37 @@ Console.WriteLine("hola");
     return Ok(inmueblesDelPropietario);
 
 }
+[HttpGet("inmueble/{id}")]
+        public async Task<IActionResult> GetContratoPorInmueble(int id)
+        {Console.WriteLine("caca");
+            try
+            {
+                var usuario = User.Identity.Name;
 
+                var propietario = await contexto.Propietarios
+                    .FirstOrDefaultAsync(p => p.Email == usuario);
 
-}
+                if (propietario == null)
+                {
+                    return NotFound("Propietario no encontrado");
+                }
+
+                var contrato = await contexto.Contratos
+                    .Include(c => c.Inquilino)
+                    .Include(c => c.Inmueble) // Incluye el objeto Inmueble en la consulta
+                    .FirstOrDefaultAsync(c => c.InmuebleId == id && c.Estado == true);
+
+                if (contrato == null)
+                {
+                    return NotFound("Contrato no encontrado");
+                }
+
+                return Ok(contrato);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al obtener el contrato: {ex.Message}");
+            }
+        }
+	}
 }

@@ -21,7 +21,7 @@ namespace InmobiliariaGutierrez.Models.VO;
             [ForeignKey(nameof(Inquilino))]
 	public int? InquilinoId { get; set; }
     public Inquilino? Inquilino { get; set; }
-      
+        public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public DateTime FechaFinAnticipada { get; set; }
         public decimal PrecioXmes { get; set; }

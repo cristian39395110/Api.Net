@@ -14,24 +14,29 @@ public class Inmueble
 
 	public Propietario? Propietario { get; set; }
 	public string? Direccion { get; set; }
-	[ForeignKey(nameof(Inmuebletipos))]
-	public int? InmuebleTipoId { get; set; } // Cambiado
+	
+	public string? InmuebleTipoId { get; set; } // Cambiado
 
-	public Inmuebletipos? InmuebleTipo { get; set; } // Agregado
+// Agregado
 
 	public int CantidadAmbientes { get; set; }
-	public bool? Suspendido { get; set; }
+
 	public bool? Disponible { get; set; }
 	public decimal? PrecioBase { get; set; }
 	
 	 public string? Imagen { get; set; } 
 
 	public string? Uso { get; set; }
-
+  [NotMapped]
+	public byte[]? imagenfile { get; set; }
+ [NotMapped]
+public byte[]? pumba { get; set; }
+ [NotMapped]
+    public string? ImagenBase64 { get; set; } 
 
 	public override string ToString()
 	{
-		return $" Id:{Id} , PropietarioId: {PropietarioId}, Dirección: {Direccion}, Tipo: {InmuebleTipoId}, Cantidad de Ambientes: {CantidadAmbientes}, Uso: {Uso}, Precio: {PrecioBase}";
+		return $" Id:{Id} , PropietarioId: {PropietarioId}, Dirección: {Direccion}, Tipo: {InmuebleTipoId}, Cantidad de Ambientes: {CantidadAmbientes}, Uso: {Uso}, Precio: {PrecioBase},pumba :{pumba}, ImagenBase64: {ImagenBase64}";
 	}
 }
 

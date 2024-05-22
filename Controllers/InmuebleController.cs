@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Laboratorio_3.Models.VO;
 using System.Security.Claims;
+using System.Text.Json;
+using Microsoft.Extensions.Hosting;
+using System.Text.RegularExpressions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,12 +23,15 @@ namespace Laboratorio_3.Controllers
 	[ApiController]
 	public class InmueblesController : Controller
 	{
-		private readonly DataContext contexto;
+		 private readonly DataContext contexto;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-		public InmueblesController(DataContext contexto)
-		{
-			this.contexto = contexto;
-		}
+        public InmueblesController(DataContext contexto, IWebHostEnvironment webHostEnvironment)
+        {
+            this.contexto = contexto;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
 
 		// GET: api/<controller>
 		[HttpGet ("Get")]
@@ -39,7 +45,7 @@ namespace Laboratorio_3.Controllers
  if (int.TryParse(userIdClaim, out int Id))
    {
     var inmueblesDelPropietario = contexto.Inmuebles
-	    .Include (i=> i.InmuebleTipo)
+	   
         .Include (i=> i.Propietario)
         .Where(i => i.PropietarioId == Id)
 		
@@ -65,7 +71,7 @@ namespace Laboratorio_3.Controllers
  if (int.TryParse(userIdClaim, out int Id))
    {
     var inmueblesDelPropietario = contexto.Inmuebles
-	    .Include (i=> i.InmuebleTipo)
+	 
         .Where(i => i.PropietarioId == Id)
 		
         .ToList();
@@ -78,51 +84,94 @@ namespace Laboratorio_3.Controllers
     }
 		}
 
-		// POST api/<controller>
-		[HttpPost("Post")]
-		public async Task<IActionResult> Post([FromBody] Inmueble entidad)
+[HttpPost("cargar")]
+public async Task<IActionResult> Cargar([FromForm] IFormFile imagen, [FromForm] string inmueble)
+{
+    Console.WriteLine(inmueble);
+    try
+    {
+        // Deserializa el JSON al objeto Inmueble
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        var inmuebleObject = JsonSerializer.Deserialize<Inmueble>(inmueble, options);
+        
+        Console.WriteLine(inmuebleObject.ToString());
 
-		{   Console.WriteLine("carajo");
-			try
-			{
-				if (ModelState.IsValid)
-				{   Console.WriteLine("carajo");
-					entidad.PropietarioId = contexto.Propietarios.Single(e => e.Email == User.Identity.Name).Id;
-					contexto.Inmuebles.Add(entidad);
-					contexto.SaveChanges();
-					return CreatedAtAction(nameof(Get), new { id = entidad.Id }, entidad);
-				}
-				return BadRequest();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        if (imagen != null) 
+        {
+            var uploadsRootFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadsRootFolder))
+            {
+                Directory.CreateDirectory(uploadsRootFolder);
+            }
+
+            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
+            var filePath = Path.Combine(uploadsRootFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await imagen.CopyToAsync(fileStream);
+            }
+
+            inmuebleObject.Imagen = Path.Combine("uploads", uniqueFileName);
+        }
+
+        var user = HttpContext.User;
+        var userIdClaim = user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (int.TryParse(userIdClaim, out int propietarioId))
+        {
+            inmuebleObject.PropietarioId = propietarioId;
+            contexto.Inmuebles.Add(inmuebleObject);
+            await contexto.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new { id = inmuebleObject.Id }, inmuebleObject);
+        }
+        else
+        {
+            return BadRequest("Invalid user ID format in token");
+        }
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+
+        // Otros métodos del controlador...
+
+
 
 		// PUT api/<controller>/5
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Put(int id, Inmueble entidad)
-		{
-			try
-			{
-				if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e => e.Propietario).FirstOrDefault(e => e.Id == id && e.Propietario.Email == User.Identity.Name) != null)
-				{
-					entidad.Id = id;
-					contexto.Inmuebles.Update(entidad);
-					contexto.SaveChanges();
-					return Ok(entidad);
-				}
-				return BadRequest();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+[HttpPut("PutInmueble")]
+public async Task<IActionResult> PutInmueble([FromBody] Inmueble entidad)
+{   Console.WriteLine("loco");
+    var user = HttpContext.User;
+    var userIdClaim = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-		// DELETE api/<controller>/5
-		[HttpDelete("{id}")]
+    if (int.TryParse(userIdClaim, out int id))
+    {
+        try
+        {    entidad.PropietarioId=id; 
+            contexto.Inmuebles.Update(entidad);
+            await contexto.SaveChangesAsync();
+            return Ok(entidad);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    return BadRequest("Invalid user ID or missing claim");
+}
+
 		public async Task<IActionResult> Delete(int id)
 		{
 			try

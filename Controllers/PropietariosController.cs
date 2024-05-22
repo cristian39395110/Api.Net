@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 using Dotnet.Models.VO;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -98,6 +100,7 @@ namespace Laboratorio_3.Models
 		}
 
 		// GET api/<controller>/token
+	/*
 		[HttpGet("token")]
 		public async Task<IActionResult> Token()
 		{
@@ -162,7 +165,7 @@ namespace Laboratorio_3.Models
 				return BadRequest(ex.Message);
 			}
 		}
-
+*/
 		// GET api/<controller>/GetAll
 		[HttpGet("GetAll")]
 		public async Task<IActionResult> GetAll()
@@ -368,7 +371,7 @@ public IActionResult GetInmueblesPropietarios()
  if (int.TryParse(userIdClaim, out int Id))
    {
     var inmueblesDelPropietario = contexto.Inmuebles
-	    .Include (i=> i.InmuebleTipo)
+	   
         .Where(i => i.PropietarioId == Id)
 		
         .ToList();
@@ -402,7 +405,136 @@ Console.WriteLine("hola");
 }
 
 
-	}
+
+
+
+
+
+[HttpGet("token")]
+[Authorize]
+public async Task<IActionResult> Token()
+{
+    try
+    {
+        var perfil = new
+        {
+            Email = User.Identity.Name,
+            Nombre = User.Claims.First(x => x.Type == "FullName").Value,
+            Rol = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value
+        };
+
+        Random rand = new Random(Environment.TickCount);
+        string randomChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789";
+        string nuevaClave = new string(Enumerable.Repeat(randomChars, 8)
+            .Select(s => s[rand.Next(s.Length)]).ToArray());
+
+        var hasher = new PasswordHasher<Propietario>();
+        var propietario = await contexto.Propietarios.FirstOrDefaultAsync(x => x.Email == perfil.Email);
+        if (propietario == null)
+        {
+            return NotFound();
+        }
+        propietario.Clave = hasher.HashPassword(propietario, nuevaClave);
+        contexto.Propietarios.Update(propietario);
+        await contexto.SaveChangesAsync();
+
+        var message = new MimeKit.MimeMessage();
+        message.To.Add(new MailboxAddress(perfil.Nombre, perfil.Email));
+        message.From.Add(new MailboxAddress("Sistema", config["SMTPUser"]));
+        message.Subject = "Nueva Clave Generada";
+        message.Body = new TextPart("html")
+        {
+            Text = @$"<h1>Hola {perfil.Nombre}</h1>
+                      <p>Tu nueva clave es: <b>{nuevaClave}</b></p>"
+        };
+
+        using (var client = new MailKit.Net.Smtp.SmtpClient())
+        {
+            client.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            await client.ConnectAsync("smtp.gmail.com", 465, MailKit.Security.SecureSocketOptions.Auto);
+            await client.AuthenticateAsync(config["SMTPUser"], config["SMTPPass"]);
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);
+        }
+
+        return Ok(perfil);
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+
+
+
+[HttpPost("email")]
+[AllowAnonymous]
+public async Task<IActionResult> GetByEmail([FromForm] string email)
+{  Console.WriteLine("calabza");
+    try
+    {
+        var entidad = await contexto.Propietarios.FirstOrDefaultAsync(x => x.Email == email);
+        if (entidad == null)
+        {
+            return NotFound();
+        }
+
+        var token = GenerateToken(entidad);
+        var dominio = environment.IsDevelopment()
+            ? HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()
+            : "www.misitio.com";
+        var resetLink = $"{dominio}/reset-password?token={token}";
+
+        await SendResetPasswordEmail(email, resetLink);
+
+        return Ok(new { message = "Se ha enviado el enlace de restablecimiento de contraseña a tu email." });
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+private string GenerateToken(Propietario propietario)
+{
+    var tokenHandler = new JwtSecurityTokenHandler();
+    var key = Encoding.ASCII.GetBytes(config["Jwt:Key"]);
+    var tokenDescriptor = new SecurityTokenDescriptor
+    {
+        Subject = new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, propietario.Email),
+            new Claim(ClaimTypes.NameIdentifier, propietario.Id.ToString())
+        }),
+        Expires = DateTime.UtcNow.AddHours(1),
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+    };
+    var token = tokenHandler.CreateToken(tokenDescriptor);
+    return tokenHandler.WriteToken(token);
+}
+
+private async Task SendResetPasswordEmail(string email, string resetLink)
+{
+    var message = new MimeKit.MimeMessage();
+    message.To.Add(new MailboxAddress("email",email));
+    message.From.Add(new MailboxAddress("Sistema", config["SMTPUser"]));
+    message.Subject = "Restablecer contraseña";
+    message.Body = new TextPart("html")
+    {
+        Text = $"Por favor, restablece tu contraseña haciendo clic <a href='{resetLink}'>aquí</a>."
+    };
+
+    using (var client = new MailKit.Net.Smtp.SmtpClient())
+    {
+        client.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+        await client.ConnectAsync("smtp.gmail.com", 465, MailKit.Security.SecureSocketOptions.Auto);
+        await client.AuthenticateAsync(config["SMTPUser"], config["SMTPPass"]);
+        await client.SendAsync(message);
+        await client.DisconnectAsync(true);
+    }
+}
+
+}
+
 }
 
 /*

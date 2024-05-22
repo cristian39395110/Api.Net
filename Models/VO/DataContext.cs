@@ -18,9 +18,15 @@ namespace Laboratorio_3.Models
 	     public DbSet<Inquilino> Inquilinos { get; set; }
 		public DbSet<Inmueble> Inmuebles { get; set; }
 		public DbSet<Inmuebletipos> Inmuebletipos { get; set; }
+		public DbSet<pagos> Pagos { get; set; }
 
 		public DbSet<Contrato> Contratos { get; set; }
 		//public DbSet<Coordenada> Coordenadas { get; set; }
+		 protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<pagos>().HasNoKey().ToTable("Pagos");
+    }
 		
 	
 	}

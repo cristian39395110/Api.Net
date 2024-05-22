@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 using Laboratorio_3.Models;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +17,15 @@ var configuration = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString("sql");
 
 
+
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddDbContext<DataContext>(options => options.UseMySQL(connectionString));
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
