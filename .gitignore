@@ -1,0 +1,60 @@
+# Configuración para Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Configuración para ASP.NET Core
+bin/
+obj/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Configuración para archivos de configuración
+appsettings.json
+appsettings.*.json
+secrets.json
+
+# Configuración para archivos de paquetes
+*.nupkg
+*.nuspec
+*.snupkg
+packages/
+.nuget/
+*.csproj.user
+*.dbmdl
+*.jfm
+
+# Configuración para la carpeta de logs
+logs/
+*.log
+
+# Configuración para archivos de implementación
+*.publishsettings
+*.pubxml
+*.pubxml.user
+
+# Configuración para Rider (JetBrains)
+.idea/
+*.sln.iml
+
+# Configuración para archivos de entorno
+.env
+.env.*
+
+# Configuración para MacOS
+.DS_Store
+
+# Configuración para Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Configuración para archivos generados por el sistema
+*.log
+*.vspscc
+*.vssscc
+_ReSharper.*

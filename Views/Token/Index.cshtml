@@ -1,0 +1,77 @@
+<div>
+    <h1 class="display-4">Resetear Contraseña</h1>
+    
+    <form id="resetPasswordForm">
+        <div class="form-group">
+            <label for="newPassword">Nueva Contraseña:</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirmar Contraseña:</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div id="passwordMatchMessage"></div>
+        <button type="button" class="btn btn-primary" onclick="resetPassword()">Resetear Contraseña</button>
+    </form>
+</div>
+
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function resetPassword() {
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var passwordMatchMessage = document.getElementById('passwordMatchMessage');
+
+        if (newPassword !== confirmPassword) {
+            passwordMatchMessage.textContent = "Las contraseñas no coinciden.";
+        } else {
+            passwordMatchMessage.textContent = ""; // Borra el mensaje de error si las contraseñas coinciden
+
+            // Objeto con los datos del formulario
+            var formData = {
+                newPassword: newPassword,
+                confirmPassword: confirmPassword
+            };
+
+            // Obtén el accessToken de la URL
+            var accessToken = getQueryParam('access_token');
+            
+            if (!accessToken) {
+                alert('No se encontró el token de acceso en la URL.');
+                return;
+            }
+
+            // Envía la solicitud POST al endpoint de la API
+            fetch("http://localhost:5000/Token/Post", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                // Verifica si la respuesta es JSON
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .then(data => {
+                // Maneja la respuesta del servidor
+                console.log(data);
+                alert(data.message); // Muestra un mensaje de éxito o error
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al enviar la solicitud: ' + error.message);
+            });
+        }
+    }
+</script>

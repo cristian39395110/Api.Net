@@ -17,6 +17,7 @@
           "MySql.EntityFrameworkCore": "8.0.2",
           "Newtonsoft.Json": "13.0.3",
           "RestSharp.Serializers.NewtonsoftJson": "110.2.1-alpha.0.20",
+          "Smtp": "1.1.0",
           "System.Data.SqlClient": "4.8.6",
           "System.IdentityModel.Tokens.Jwt": "7.5.1"
         },
@@ -577,6 +578,14 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "Smtp/1.1.0": {
+        "runtime": {
+          "lib/net6.0/Smtp.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
           }
         }
       },
@@ -1209,6 +1218,13 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "Smtp/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2iN9lBxWaerJHOnpttMMvgkwAYT0be7tjLaxfb5GP2CFPTY8OwUmisQS19t6t2HnmLcKFiODEZpY4V+vWbLw5w==",
+      "path": "smtp/1.1.0",
+      "hashPath": "smtp.1.1.0.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

@@ -17,3 +17,11 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Home/OneDrive/Escritorio/Laboratorio_3/Api.Net/Views/Propietarios/token.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9zXHRva2VuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Home/OneDrive/Escritorio/Laboratorio_3/Api.Net/Views/Token/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9rZW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

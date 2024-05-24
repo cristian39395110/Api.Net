@@ -268,3 +268,6 @@ C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\bin\Debug\net8.0\Microso
 C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\bin\Debug\net8.0\RestSharp.dll
 C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\bin\Debug\net8.0\RestSharp.Serializers.NewtonsoftJson.dll
+C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\bin\Debug\net8.0\Smtp.dll
+C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\obj\Debug\net8.0\Laboratorio 3.RazorAssemblyInfo.cache
+C:\Users\Home\OneDrive\Escritorio\Laboratorio_3\Api.Net\obj\Debug\net8.0\Laboratorio 3.RazorAssemblyInfo.cs

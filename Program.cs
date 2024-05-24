@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -6,117 +5,171 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
 using Laboratorio_3.Models;
-
-
+using MimeKit;
+using MailKit.Net.Smtp;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://localhost:5000","https://localhost:5001", "http://*:5000", "https://*:5001");
+builder.WebHost.UseUrls("http://localhost:5000", "https://localhost:5001", "http://*:5000", "https://*:5001");
+
+// Configurar servicios
 var configuration = builder.Configuration;
-var connectionString = builder.Configuration.GetConnectionString("sql");
-
-
-
-
+var connectionString = configuration.GetConnectionString("sql");
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseMySQL(connectionString));
+builder.Services.AddDbContext<DataContext>(options => 
+    options.UseMySQL(connectionString));
+
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
 });
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-	.AddCookie(options =>//el sitio web valida con cookie
-	{
-		options.LoginPath = "/Usuarios/Login";
-		options.LogoutPath = "/Usuarios/Logout";
-		options.AccessDeniedPath = "/Home/Restringido";
-		//options.ExpireTimeSpan = TimeSpan.FromMinutes(5);//Tiempo de expiración
-	})
-	.AddJwtBearer(options =>//la api web valida con token
-	{
-		options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-		{
-			ValidateIssuer = true,
-			ValidateAudience = true,
-			ValidateLifetime = true,
-			ValidateIssuerSigningKey = true,
-			ValidIssuer = configuration["TokenAuthentication:Issuer"],
-			ValidAudience = configuration["TokenAuthentication:Audience"],
-			IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(
-				configuration["TokenAuthentication:SecretKey"])),
-		};
-		// opción extra para usar el token en el hub y otras peticiones sin encabezado (enlaces, src de img, etc.)
-		options.Events = new JwtBearerEvents
-		{
-			OnMessageReceived = context =>
-			{
-				// Leer el token desde el query string
-				var accessToken = context.Request.Query["access_token"];
-				// Si el request es para el Hub u otra ruta seleccionada...
-				var path = context.HttpContext.Request.Path;
-				if (!string.IsNullOrEmpty(accessToken) &&
-					(path.StartsWithSegments("/chatsegurohub") ||
-					path.StartsWithSegments("/api/propietarios/reset") ||
-					path.StartsWithSegments("/api/propietarios/token")))
-				{//reemplazar las urls por las necesarias ruta ⬆
-					context.Token = accessToken;
-				}
-				return Task.CompletedTask;
-			}
-		};
-	});
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Usuarios/Login";
+        options.LogoutPath = "/Usuarios/Logout";
+        options.AccessDeniedPath = "/Home/Restringido";
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = configuration["TokenAuthentication:Issuer"],
+            ValidAudience = configuration["TokenAuthentication:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["TokenAuthentication:SecretKey"]))
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    (path.StartsWithSegments("/chatsegurohub") ||
+                    path.StartsWithSegments("/api/propietarios/reset") ||
+                    path.StartsWithSegments("/api/propietarios/token")))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
+    });
+
+/*
+// Configuración para las Vistas
+var viewBuilder = WebApplication.CreateBuilder(args);
+viewBuilder.WebHost.UseUrls("http://localhost:5002", "https://localhost:5003", "http://*:5002", "https://*:5003");
+
+var viewConfiguration = viewBuilder.Configuration;
+var viewConnectionString = viewConfiguration.GetConnectionString("sql");
+viewBuilder.Services.AddDbContext<DataContext>(options => options.UseMySQL(viewConnectionString));
+*/
 
 builder.Services.AddAuthorization(options =>
 {
-	//options.AddPolicy("Empleado", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador", "Empleado"));
-	options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador", "SuperAdministrador"));
+    options.AddPolicy("Administrador", policy => 
+        policy.RequireRole("Administrador", "SuperAdministrador"));
 });
+
 builder.Services.AddMvc();
-builder.Services.AddSignalR();//añade signalR
-
-    
-Console.WriteLine("Successfully connected to the database!");
-
-
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
 app.UseCors(x => x
-	.AllowAnyOrigin()
-	.AllowAnyMethod()
-	.AllowAnyHeader());
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-	MinimumSameSitePolicy = SameSiteMode.None,
+    MinimumSameSitePolicy = SameSiteMode.None,
 });
-// Habilitar autenticación
+
 app.UseAuthentication();
 app.UseAuthorization();
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
-// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/routing
+
+
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute("login", "entrar/{**accion}", new { controller = "Usuarios", action = "Login" });
 app.MapControllerRoute("rutaFija", "ruteo/{valor}", new { controller = "Home", action = "Ruta", valor = "defecto" });
 app.MapControllerRoute("fechas", "{controller=Home}/{action=Fecha}/{anio}/{mes}/{dia}");
-app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-//
 
+app.MapControllerRoute(
+    name: "vista",
+    pattern: "token",
+    defaults: new { controller = "Token", action = "Index" });
 
+app.MapControllerRoute(
+    name: "postToken",
+    pattern: "Token/Post",
+    defaults: new { controller = "Token", action = "Post" });
+   
+    
 app.Run();
+
+// Mover el bloque de código de envío de correo a un controlador o servicio
+public class EmailService
+{
+    private readonly IConfiguration _config;
+
+    public EmailService(IConfiguration config)
+    {
+        _config = config;
+    }
+
+    public void SendEmail()
+    {
+        try
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Sistema", _config["Smtp:User"]));
+            message.To.Add(new MailboxAddress("Destinatario", "destinatario@example.com"));
+            message.Subject = "Asunto del Correo";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Cuerpo del correo"
+            };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect(_config["Smtp:Host"], int.Parse(_config["Smtp:Port"]), _config.GetValue<bool>("Smtp:SMTPUseSSL"));
+                client.Authenticate(_config["Smtp:User"], _config["Smtp:Pass"]);
+                
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+            Console.WriteLine("Correo enviado exitosamente.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error enviando correo: {ex.Message}");
+        }
+    }
+}
